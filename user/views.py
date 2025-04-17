@@ -5,11 +5,6 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 
 
-def homepage(request):
-
-    return render(request, 'user/index.html')
-
-
 def register(request):
     if request.method == 'POST':
         user_form = CreateUserForm(request.POST)

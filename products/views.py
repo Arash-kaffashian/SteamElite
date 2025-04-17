@@ -2,9 +2,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import render
 
 from .models import Product, Category, File
 from .serializers import ProductSerializer, CategorySerializer, FileSerializer
+
+
+def homepage(request):
+    products = Product.objects.all()
+    return render(request, 'index.html', {'products':products})
 
 
 class CategoryListView(APIView):

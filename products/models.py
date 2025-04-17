@@ -23,7 +23,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(_('title'), max_length=20)
+    title = models.CharField(_('title'), max_length=70)
     description = models.TextField(_('description'), blank=True)
     avatar = models.ImageField(_('avatar'), blank=True, upload_to='products/')
     product_id = models.PositiveIntegerField(_('product id'), blank=True, null=True)
