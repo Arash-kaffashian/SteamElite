@@ -21,6 +21,7 @@ class AccountForm(forms.ModelForm):
         model = Account
         fields = ['steam_id']
 
+
 class LoginForm(AuthenticationForm):
 
     username = forms.CharField(widget=TextInput())

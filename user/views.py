@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from user.templates.user.forms import CreateUserForm, AccountForm, LoginForm
 
-from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -42,14 +41,19 @@ def my_login(request):
 
             if user is not None:
 
-                auth.login(request,user)
+                login(request,user)
 
                 return redirect("dashboard")
-
 
     context = {'loginform':form}
 
     return render(request, 'user/my-login.html', context=context)
+
+
+def my_logout(request):
+
+    logout(request)
+    return redirect('home')
 
 
 def dashboard(request):
