@@ -13,6 +13,11 @@ def homepage(request):
     return render(request, 'index.html', {'products':products})
 
 
+def product(request,pk):
+    product = Product.objects.get(product_id=pk)
+    return render(request, 'product.html', {'product': product})
+
+
 class CategoryListView(APIView):
 
     def get(self, request):
