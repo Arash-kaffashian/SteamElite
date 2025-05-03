@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block content%}
+{% block content %}
 <br><br>
 <div class="card mb-3">
   <div class="row g-0">
@@ -18,10 +18,11 @@
         <br>
         Turkey price: {{ product.price_tr}}
         <br>
-        Brezil price: {{ product.price_br}}
+        Brazil price: {{ product.price_br}}
         <br><br>
 
         <a href="{% url 'home'%}" class="btn btn-secondary">steam</a>
+        <button type="button" value="{{ product.product_id }}" class="btn btn-secondary" id="add-cart" >Add To Cart</button>
         </center>
 
       </div>
@@ -29,4 +30,36 @@
   </div>
 </div>
 <br><br>
+
+<script>
+  $(document).on('click', '#add-cart', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url 'cart_add' %}',
+      data: {
+        product_id: $('#add-cart').val(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+
+      success: function(json){
+        console.log(json)
+      },
+
+      error: function(xhr, errmsg, err){
+
+      }
+
+
+
+    });
+
+
+
+  })
+</script>
+
+
+
 {% endblock %}

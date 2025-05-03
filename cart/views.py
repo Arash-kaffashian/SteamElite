@@ -1,4 +1,8 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+
+from .cart import Cart
+from products.models import Product
 
 
 def cart_summary(request):
@@ -6,7 +10,22 @@ def cart_summary(request):
 
 
 def cart_add(request):
-    pass
+    # Get the cart
+    cart = Cart(request)
+    # test for POST
+    if request.POST.get('action') == 'post':
+        # Get stuff
+        product_id = int(request.POST.get('product_id'))
+
+        # lookup product in db
+        product = get_object_or_404(Product, product_id=product_id)
+
+        # save to session
+        cart.add(product=product)
+
+        # return response
+        response = JsonResponse({'product name: ': product.title})
+        return response
 
 
 def cart_delete(request):

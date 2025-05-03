@@ -2,7 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Product, Category, File
 from .serializers import ProductSerializer, CategorySerializer, FileSerializer
@@ -13,9 +14,20 @@ def homepage(request):
     return render(request, 'index.html', {'products':products})
 
 
-def product(request,pk):
+def product(request, pk):
     product = Product.objects.get(product_id=pk)
     return render(request, 'product.html', {'product': product})
+
+
+def category(request, ck):
+    try:
+        target = get_object_or_404(Category, title=ck)
+        products = Product.objects.filter(categories=target)
+        return render(request, 'category.html', {'products': products, 'target': target})
+    except:
+        messages.success(request, "something went wrong!")
+        return redirect('home')
+
 
 
 class CategoryListView(APIView):
