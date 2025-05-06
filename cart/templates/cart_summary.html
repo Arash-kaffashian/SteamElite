@@ -10,62 +10,45 @@
                 </div>
             </div>
         </header>
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
+<br>
+                {% if cart_products %}
+                    {% for product in cart_products %}
 
-                    {% for product in products %}
-<!--                        {% if product.is_sale %}-->
-<!--                        <div class="col mb-5">-->
-<!--                            <div class="card h-100">-->
-<!--                                &lt;!&ndash; Sale badge &ndash;&gt;-->
-<!--                                <div class="badge bg-dark"-->
-<!--                                text-white position-absolute"-->
-<!--                                style="top: 0.5rem; right: 0.5rem">Sale</div>-->
-<!--                                &lt;!&ndash; Product image&ndash;&gt;-->
-<!--                                <img class="card-img-top" src="{{ product.avatar.url }}" alt="..." onerror="this.onerror=null; this.src='/static/images/default-avatar.png';" />-->
-<!--                                &lt;!&ndash; Product details&ndash;&gt;-->
-<!--                                <div class="card-body p-4">-->
-<!--                                    <div class="text-center">-->
-<!--                                        &lt;!&ndash; Product name&ndash;&gt;-->
-<!--                                        <h5 class="fw-bolder">{{ product.title }}</h5>-->
-<!--                                        &lt;!&ndash; Product price&ndash;&gt;-->
-<!--                                        <strike>-->
-<!--                                        ${{ product.price_global }}-->
-<!--                                        </strike>-->
-<!--                                        ${{ product.price_on_sale }}-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; Product actions&ndash;&gt;-->
-<!--                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">-->
-<!--                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        {% else %}-->
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.avatar.url }}" alt="..." onerror="this.onerror=null; this.src='/static/images/default-avatar.png';" />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.title }}</h5>
-                                    <!-- Product price-->
-                                    ${{ product.price_global }}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.product_id %}">View product</a></div>
-                            </div>
-                        </div>
-                    </div>
-                        {% endif %}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ product.avatar.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+
+        <center>
+
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+
+        Global price: {{ product.price_global}}
+        <br>
+        Turkey price: {{ product.price_tr}}
+        <br>
+        Brazil price: {{ product.price_br}}
+        <br><br>
+
+        <a href="{% url 'home'%}" class="btn btn-secondary">steam</a>
+        <div class="text-center"><a class="btn btn-secondary" href="{% url 'product' product.product_id %}">View product</a></div>
+        </center>
+
+      </div>
+    </div>
+  </div>
+</div>
+
                     {% endfor %}
+                {% else %}
+                there is no product in your cart ...
+                <br><br>
+                {% endif %}
 
                 </div>
             </div>

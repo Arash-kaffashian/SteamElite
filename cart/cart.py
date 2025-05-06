@@ -1,10 +1,12 @@
+from products.models import Product
+
 
 class Cart():
     def __init__(self, request):
         self.session = request.session
 
         # Get the current session key if it exists
-        cart=self.session.get('session_key')
+        cart = self.session.get('session_key')
 
         # If the user is new, no session key! create on!
         if 'session_key' not in request.session:
@@ -23,4 +25,15 @@ class Cart():
             self.cart[product_id] = {'price': str(product.price_global)}
 
         self.session.modified = True
+
+    def __len__(self):
+        return len(self.cart)
+
+    def get_prods(self):
+        # Get ids from cart
+        product_ids = self.cart.keys()
+        # Use ids to look up the products in db models
+        products = Product.objects.filter(product_id__in = product_ids)
+        # Return looked up products
+        return products
 

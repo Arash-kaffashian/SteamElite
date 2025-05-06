@@ -6,7 +6,9 @@ from products.models import Product
 
 
 def cart_summary(request):
-    return render(request, "cart_summary.html", {})
+    cart = Cart(request)
+    cart_products = cart.get_prods()
+    return render(request, "cart_summary.html", {"cart_products": cart_products})
 
 
 def cart_add(request):
@@ -23,8 +25,11 @@ def cart_add(request):
         # save to session
         cart.add(product=product)
 
+        # Get cart quantity
+        cart_quantity = cart.__len__()
+
         # return response
-        response = JsonResponse({'product name: ': product.title})
+        response = JsonResponse({'quantity': cart_quantity})
         return response
 
 
