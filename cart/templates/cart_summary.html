@@ -15,34 +15,35 @@
                 {% if cart_products %}
                     {% for product in cart_products %}
 
-<div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{ product.avatar.url }}" class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
+                    <div class="card mb-3">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="{{ product.avatar.url }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body text-center">
 
-        <center>
+                            <h5 class="card-title">{{ product.title }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
 
-        <h5 class="card-title">{{ product.title }}</h5>
-        <p class="card-text">{{ product.description }}</p>
+                            Global price: {{ product.price_global}}
+                            <br>
+                            Turkey price: {{ product.price_tr}}
+                            <br>
+                            Brazil price: {{ product.price_br}}
+                            <br><br>
 
-        Global price: {{ product.price_global}}
-        <br>
-        Turkey price: {{ product.price_tr}}
-        <br>
-        Brazil price: {{ product.price_br}}
-        <br><br>
+                            <div class="d-flex justify-content-center gap-2">
+                              <a href="{% url 'home'%}" class="btn btn-secondary">steam</a>
+                              <a href="{% url 'product' product.product_id %}" class="btn btn-secondary">View product</a>
+                              <button type="button" data-index="{{product.product_id}}" class="btn btn-danger delete-product">Remove</button>
+                            </div>
 
-        <a href="{% url 'home'%}" class="btn btn-secondary">steam</a>
-        <div class="text-center"><a class="btn btn-secondary" href="{% url 'product' product.product_id %}">View product</a></div>
-        </center>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-      </div>
-    </div>
-  </div>
-</div>
 
                     {% endfor %}
                 {% else %}
@@ -50,8 +51,31 @@
                 <br><br>
                 {% endif %}
 
-                </div>
-            </div>
-        </section>
+
+
+<script>
+  $(document).on('click', '.delete-product', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url 'cart_delete' %}',
+      data: {
+        product_id: $(this).data('index'),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+
+      success: function(json){
+        location.reload();
+      },
+
+      error: function(xhr, errmsg, err){
+
+      }
+
+    });
+
+  })
+</script>
 
 {% endblock %}

@@ -1,13 +1,14 @@
 from django.urls import path
 
 from .views import (
-    homepage, product, category, ProductListView, ProductDetailView, CategoryListView, CategoryDetailView,
+    homepage, about, product, category, ProductListView, ProductDetailView, CategoryListView, CategoryDetailView,
     FileListView, FileDetailView
 )
 
 
 urlpatterns = [
     path('index', homepage, name="home"),
+    path('about', about, name='about'),
     path('product/<int:pk>/', product, name='product'),
     path('category/<str:ck>/', category, name='category'),
 

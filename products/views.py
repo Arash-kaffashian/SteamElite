@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Product, Category, File
+from .API import global_price, brazil_price, turkey_price
 from .serializers import ProductSerializer, CategorySerializer, FileSerializer
 
 
@@ -14,9 +15,17 @@ def homepage(request):
     return render(request, 'index.html', {'products':products})
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
 def product(request, pk):
     product = Product.objects.get(product_id=pk)
-    return render(request, 'product.html', {'product': product})
+    product_id = str(pk)
+    price1 = global_price(product_id)
+    price2 = turkey_price(product_id)
+    price3 = brazil_price(product_id)
+    return render(request, 'product.html', {'product': product, 'price1': price1, 'price2': price2, 'price3': price3})
 
 
 def category(request, ck):

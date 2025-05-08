@@ -14,11 +14,11 @@
         <h5 class="card-title">{{ product.title }}</h5>
         <p class="card-text">{{ product.description }}</p>
 
-        Global price: {{ product.price_global}}
+        Global price: {{ price1 }}
         <br>
-        Turkey price: {{ product.price_tr}}
+        Turkey price: {{ price2 }}
         <br>
-        Brazil price: {{ product.price_br}}
+        Brazil price: {{ price3 }}
         <br><br>
 
         <a href="{% url 'home'%}" class="btn btn-secondary">steam</a>
@@ -44,7 +44,8 @@
       },
 
       success: function(json){
-        console.log(json)
+        document.getElementById("cart_quantity").
+          textContent = json.quantity
       },
 
       error: function(xhr, errmsg, err){
