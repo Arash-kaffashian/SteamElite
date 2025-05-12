@@ -8,7 +8,8 @@ from products.models import Product
 def cart_summary(request):
     cart = Cart(request)
     cart_products = cart.get_prods()
-    return render(request, "cart_summary.html", {"cart_products": cart_products})
+    total = cart.total_price()
+    return render(request, "cart_summary.html", {"cart_products": cart_products, 'total': total})
 
 
 def cart_add(request):

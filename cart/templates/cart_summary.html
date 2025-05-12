@@ -26,11 +26,11 @@
                             <h5 class="card-title">{{ product.title }}</h5>
                             <p class="card-text">{{ product.description }}</p>
 
-                            Global price: {{ product.price_global}}
+                            Global price: {{ product.price_global }}
                             <br>
-                            Turkey price: {{ product.price_tr}}
+                            Turkey price: {{ product.price_tr }}
                             <br>
-                            Brazil price: {{ product.price_br}}
+                            Brazil price: {{ product.price_br }}
                             <br><br>
 
                             <div class="d-flex justify-content-center gap-2">
@@ -46,6 +46,7 @@
 
 
                     {% endfor %}
+                <h3>Total : {{ total }}</h3>
                 {% else %}
                 there is no product in your cart ...
                 <br><br>

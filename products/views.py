@@ -20,12 +20,11 @@ def about(request):
 
 
 def product(request, pk):
-    product = Product.objects.get(product_id=pk)
-    product_id = str(pk)
-    price1 = global_price(product_id)
-    price2 = turkey_price(product_id)
-    price3 = brazil_price(product_id)
-    return render(request, 'product.html', {'product': product, 'price1': price1, 'price2': price2, 'price3': price3})
+    targe_product = Product.objects.get(product_id=pk)
+    price1 = global_price(pk)
+    price2 = turkey_price(pk)
+    price3 = brazil_price(pk)
+    return render(request, 'product.html', {'product': targe_product, 'price1': price1, 'price2': price2, 'price3': price3})
 
 
 def category(request, ck):
@@ -36,7 +35,6 @@ def category(request, ck):
     except:
         messages.success(request, "something went wrong!")
         return redirect('home')
-
 
 
 class CategoryListView(APIView):

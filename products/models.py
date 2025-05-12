@@ -35,7 +35,7 @@ class Product(models.Model):
     def update_prices(self):
         self.price_tr = turkey_price(self.product_id)
         self.price_br = brazil_price(self.product_id)
-        self.price_us = global_price(self.product_id)
+        self.price_global = global_price(self.product_id)
         self.save()
 
     is_enable = models.BooleanField(_('is enable'), default=True)

@@ -29,6 +29,16 @@ class Cart():
     def __len__(self):
         return len(self.cart)
 
+    def total_price(self):
+        products_ids = self.cart.keys()
+        products = Product.objects.filter(product_id__in=products_ids)
+
+        total = 0
+        for product in products:
+            Product.update_prices(product)
+            total = total + product.price_global
+        return total
+
     def get_prods(self):
         # Get ids from cart
         product_ids = self.cart.keys()
