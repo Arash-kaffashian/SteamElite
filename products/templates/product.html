@@ -46,6 +46,7 @@
       success: function(json){
         document.getElementById("cart_quantity").
           textContent = json.quantity
+          location.reload();
       },
 
       error: function(xhr, errmsg, err){

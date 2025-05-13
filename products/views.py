@@ -19,6 +19,11 @@ def about(request):
     return render(request, 'about.html')
 
 
+def category_summary(request):
+    categories = Category.objects.all()
+    return render(request, 'category_summary.html', {'categories': categories})
+
+
 def product(request, pk):
     targe_product = Product.objects.get(product_id=pk)
     price1 = global_price(pk)

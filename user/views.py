@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from user.templates.user.forms import CreateUserForm, AccountForm, LoginForm
+from user.templates.user.forms import CreateUserForm, AccountForm, LoginForm, UpdateUserForm, UpdateAccountForm
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib import messages
+
+from .models import Account
 
 
 def register(request):
@@ -61,3 +64,22 @@ def dashboard(request):
 
     return render(request, 'user/dashboard.html')
 
+
+def user_update(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        current_account = Account.objects.get(user=request.user)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+        account_form = UpdateAccountForm(request.POST or None, instance=current_account)
+
+        if user_form.is_valid() and account_form.is_valid():
+            user_form.save()
+            account_form.save()
+
+            login(request, current_user)
+            messages.success(request, 'Profile updated successfully!!!')
+            return redirect('home')
+        return render(request, 'user/user_update.html', {'user_form': user_form, 'account_form': account_form})
+    else:
+        messages.success(request, 'you have to logged in first to access this page!!!')
+        return redirect('home')

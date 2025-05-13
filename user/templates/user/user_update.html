@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <!-- Header-->
+        <header class="bg-dark py-1">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder"> Profile </h1>
+                    <p class="lead fw-normal text-white-50 mb-0">you update your stuffs if you want!</p>
+                </div>
+            </div>
+        </header>
+
+<br><br>
+
+    <h1>Update Profile</h1>
+    <form method="post" autocomplete="off">
+
+        {% csrf_token %}
+
+        {{user_form.as_p}}
+        {{account_form.as_p}}
+
+        <input type="submit" value="register"/>
+
+    </form>
+
+<br><br><br>
+
+{% endblock %}
