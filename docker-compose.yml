@@ -1,0 +1,13 @@
+name: docker-project
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docker-image
+    container_name: docker-container
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
