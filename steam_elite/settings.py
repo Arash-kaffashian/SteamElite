@@ -71,8 +71,12 @@ WSGI_APPLICATION = 'steam_elite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'my_database',
+        'USER': 'my_user',
+        'PASSWORD': 'my_password',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 

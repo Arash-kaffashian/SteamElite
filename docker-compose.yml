@@ -11,3 +11,13 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+  db:
+    image: postgres:18beta2-bullseye
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: my_password
+      POSTGRES_DB: my_database
+    ports:
+      - "5432:5432"
