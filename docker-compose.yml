@@ -1,23 +1,56 @@
-name: docker-project
+version: '3.9'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: docker-image
-    container_name: docker-container
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
   db:
-    image: postgres:18beta2-bullseye
-    container_name: postgres-db
-    restart: always
+    image: postgres:15
     environment:
+      POSTGRES_DB: my_database
       POSTGRES_USER: my_user
       POSTGRES_PASSWORD: my_password
-      POSTGRES_DB: my_database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DEBUG=1
+
+  celery_worker:
+    build: .
+    command: >
+      sh -c "dockerize -wait tcp://db:5432 -wait tcp://redis:6379 celery -A steam_elite worker --loglevel=info"
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - db
+      - redis
+
+  celery_beat:
+    build: .
+    command: >
+      sh -c "dockerize -wait tcp://db:5432 -wait tcp://redis:6379 celery -A steam_elite beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - db
+      - redis
+
+volumes:
+  postgres_data:

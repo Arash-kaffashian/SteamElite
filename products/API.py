@@ -1,25 +1,29 @@
 import requests
 import re
+import redis
+from steam_elite import settings
+from .tasks import update_turkey_price
+
+
+# اتصال به Redis برای کش
+cache = redis.StrictRedis(
+    host=settings.REDIS_HOST,
+    port=settings.REDIS_PORT,
+    db=settings.REDIS_DB_CACHE,
+    decode_responses=True
+)
 
 
 def turkey_price(pk):
-    url = f"{"https://store.steampowered.com/api/appdetails?appids="}{pk}{"&filters=&cc=TR"}"
+    """تابع معمولی برای گرفتن قیمت از کش"""
+    cache_key = f"turkey_price:{pk}"
+    cached_value = cache.get(cache_key)
 
-    response = requests.get(url)
-    pk = str(pk)
-
-    if response.status_code == 200:
-        data = response.json()
-        app_data = data[pk]['data']
-
-        if app_data['is_free']:
-            price_1 = "Free"
-        else:
-            price_1 = app_data['price_overview']['final_formatted']
-            price_1 = price_1.replace('$', '').replace('USD', '').strip()
-            price_1 = float(price_1)
-
-        return price_1
+    if cached_value:
+        return float(cached_value) if cached_value != "Free" else "Free"
+    else:
+        # اگر کش خالی بود (مثلاً بار اول)
+        return update_turkey_price(pk)
 
 
 def brazil_price(pk):
