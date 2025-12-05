@@ -19,7 +19,14 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+      dockerize -wait tcp://db:5432 -timeout 40s &&
+      dockerize -wait tcp://redis:6379 -timeout 40s &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      python manage.py runserver 0.0.0.0:8000
+      "
     volumes:
       - .:/app
     ports:
