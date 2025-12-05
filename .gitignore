@@ -73,3 +73,7 @@ $RECYCLE.BIN/
 # Other build artifacts
 *.tar.gz
 *.zip
+
+# celery beat
+celerybeat-schedule
+celerybeat.pid

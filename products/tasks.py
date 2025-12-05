@@ -3,7 +3,7 @@ import redis
 from celery import shared_task
 from django.conf import settings
 
-cache = redis.StrictRedis(host='localhost', port=6379, db=settings.REDIS_CACHE_DB, decode_responses=True)
+cache = redis.StrictRedis.from_url(settings.REDIS_CACHE_URL, decode_responses=True)
 
 
 def update_turkey_price(pk):
