@@ -1,0 +1,75 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env
+
+# Python distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+parts/
+wheels/
+*.manifest
+*.spec
+
+# SQLite / database
+*.sqlite3
+*.sqlite3-journal
+*.db
+
+# Django / Web project
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Media and user uploads
+media/
+
+# Static files generated
+staticfiles/
+
+# Cache, temp and IDE / editor files
+*.tmp
+*.bak
+*.swp
+*.~
+*.~*
+
+# IDE / Editor configs
+.vscode/
+.idea/
+*.code-workspace
+
+# Testing / coverage / reports
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+
+# OS-specific files
+.DS_Store
+._*
+Thumbs.db
+ehthumbs*.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs / runtime generated files
+*.log
+*.pid
+
+# Other build artifacts
+*.tar.gz
+*.zip
