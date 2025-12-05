@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
+IS_DEVEL = config("IS_DEVEL", default=True, cast=bool)
 
 # ------------------------
 # Applications
@@ -121,6 +122,18 @@ CELERY_BROKER_URL = config('REDIS_BROKER_URL')
 CELERY_RESULT_BACKEND = config('REDIS_BACKEND_URL')
 CELERY_TIMEZONE = "Asia/Tehran"
 CELERY_ENABLE_UTC = True
+
+
+# ------------------------
+# Celery
+# ------------------------
+REDIS_HOST = config("REDIS_HOST", default="redis")
+REDIS_PORT = config("REDIS_PORT", default="6379")
+
+REDIS_CACHE_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+REDIS_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/1"
+REDIS_DB_CACHE = config('REDIS_CACHE_URL')
+
 
 # Celery Beat schedule example
 CELERY_BEAT_SCHEDULE = {
