@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 from datetime import timedelta
-from decouple import config
+from decouple import config, Csv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,6 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 IS_DEVEL = config("IS_DEVEL", default=True, cast=bool)
+
+# Allowed hosts
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 # ------------------------
 # Applications
