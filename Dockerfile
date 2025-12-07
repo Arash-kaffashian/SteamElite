@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dockerize (برای انتظار سرویس‌ها)
+# Install dockerize
 RUN curl -L https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
     | tar -C /usr/local/bin -xzvf -
 
@@ -26,8 +26,8 @@ RUN pip install -r requirements.txt
 # Copy project
 COPY . .
 
-# Collect static files (اختیاری)
+# Collect static files
 # RUN python manage.py collectstatic --noinput
 
-# Default CMD (می‌توان در docker-compose override کرد)
+# Default CMD
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
