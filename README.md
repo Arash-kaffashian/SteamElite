@@ -49,7 +49,7 @@ This project main goal is to provide a way out for following reasons:
  <li>
        <strong>Docker Compose</strong>        
   </li>
-  <p>Docker compose prod/dev and minimum setup for django and db included,with volumes and network</p>
+  <p>Docker compose plus depends_on and minimum setup for django and db included,with volumes and network</p>
 
  <li>
        <strong>Static Scripts</strong>        
