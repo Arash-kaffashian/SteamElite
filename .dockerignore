@@ -1,3 +1,38 @@
-.env
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual env
 venv/
+.env/
+.env.*
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Node / Frontend (اگر داری)
+node_modules/
+
+# Django
+media/
+static/
+staticfiles/
+
+# Tests / coverage
+htmlcov/
+.coverage
+
+# Docker
 Dockerfile
+docker-compose.yml
